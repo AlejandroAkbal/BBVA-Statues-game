@@ -2,8 +2,7 @@ export default defineNuxtConfig({
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',
-    '@pinia/nuxt',
-    '@nuxtjs/color-mode',
+    '@kevinmarrec/nuxt-pwa',
   ],
   experimental: {
     reactivityTransform: true,
@@ -11,7 +10,9 @@ export default defineNuxtConfig({
   unocss: {
     preflight: true,
   },
-  colorMode: {
-    classSuffix: '',
+  pwa: {
+    workbox: {
+      enabled: true,
+    },
   },
 })
