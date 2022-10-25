@@ -1,13 +1,15 @@
 export default defineNuxtConfig({
-  modules: ['@vueuse/nuxt', '@unocss/nuxt', '@kevinmarrec/nuxt-pwa'],
+  ssr: false,
 
   experimental: {
     reactivityTransform: true
   },
 
+  modules: ['@vueuse/nuxt', '@unocss/nuxt', '@kevinmarrec/nuxt-pwa'],
+
   unocss: {
     preflight: true
-  },
+  }
 
-  pwa: {}
+  // TODO: Configure PWA
 })
