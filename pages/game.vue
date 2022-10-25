@@ -143,21 +143,30 @@ function onWalkRight() {
 
 <template>
   <div class="flex h-full flex-col">
-    <section class="flex items-center justify-around bg-gray-900 py-2">
+    <section class="flex items-center justify-between rounded-b-lg bg-gray-900 py-3 px-5">
       <!-- Player name -->
-      <h1 class="text-xl font-semibold text-white">{{ playerName }}</h1>
-
+      <div>
+        <h1 class="text-xl font-semibold text-white">{{ playerName }}</h1>
+      </div>
       <!-- Exit button -->
       <NuxtLink
-        class="rounded-md bg-white px-2 py-1"
+        class="focus:focus-util rounded-md p-2 hover:bg-gray-800"
         to="/"
       >
-        Exit
+        <div class="i-carbon-logout h-6 w-6 text-white" />
       </NuxtLink>
     </section>
 
+    <!-- Player high-score -->
+    <section class="mt-4">
+      <h2 class="text-md text-indigo text-center font-semibold">
+        <span class="rounded-full bg-gray-800 px-2 py-1">{{ playerData.highScore }}</span>
+        High Score
+      </h2>
+    </section>
+
     <!-- Traffic light icon -->
-    <section class="my-4 grid place-items-center">
+    <section class="my-12 grid place-items-center">
       <div
         :class="[trafficLight === 'green' ? 'bg-green' : 'bg-red']"
         class="w-fit rounded-full p-4"
@@ -168,22 +177,16 @@ function onWalkRight() {
 
     <section>
       <!-- Player score -->
-      <span class="text-lg font-semibold text-white">
+      <h3 class="text-center text-4xl font-semibold text-white">
         {{ playerData.score }}
-        Score
-      </span>
-
-      <!-- Player high-score -->
-      <span class="text-lg font-semibold text-white">
-        {{ playerData.highScore }}
-        High Score
-      </span>
+        <span class="block text-lg text-gray-300">Score</span>
+      </h3>
     </section>
 
     <section class="flex flex-auto items-center justify-center gap-6">
       <!-- Walk left button -->
       <button
-        class="h-30 w-30 flex flex-col items-center justify-center rounded-full bg-white"
+        class="h-30 w-30 focus:focus-util flex flex-col items-center justify-center rounded-full bg-white hover:bg-gray-200 focus:ring-offset-2"
         type="button"
         @click="onWalkLeft"
       >
@@ -204,7 +207,7 @@ function onWalkRight() {
 
       <!-- Walk right button -->
       <button
-        class="h-30 w-30 flex flex-col items-center justify-center rounded-full bg-white"
+        class="h-30 w-30 focus:focus-util flex flex-col items-center justify-center rounded-full bg-white hover:bg-gray-200 focus:ring-offset-2"
         type="button"
         @click="onWalkRight"
       >
