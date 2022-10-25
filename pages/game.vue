@@ -188,6 +188,7 @@ function onWalkRight() {
         @click="onWalkLeft"
       >
         <svg
+          aria-hidden="true"
           class="h-16 w-16"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -208,6 +209,7 @@ function onWalkRight() {
         @click="onWalkRight"
       >
         <svg
+          aria-hidden="true"
           class="h-16 w-16"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
