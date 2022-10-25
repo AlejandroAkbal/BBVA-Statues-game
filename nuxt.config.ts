@@ -11,7 +11,9 @@ export default defineNuxtConfig({
     preflight: true
   },
 
-  // TODO: Configure PWA
+  pwa: {
+    icon: { source: './public/favicon.svg' }
+  },
 
   telemetry: false
 })
