@@ -143,14 +143,15 @@ function onWalkRight() {
 
 <template>
   <div class="flex h-full flex-col">
-    <section class="flex items-center justify-between rounded-b-lg bg-gray-900 py-3 px-5">
+    <section class="bg-dark-800 flex items-center justify-between rounded-b-lg py-3 px-5">
       <!-- Player name -->
       <div>
         <h1 class="text-xl font-semibold text-white">{{ playerName }}</h1>
       </div>
+
       <!-- Exit button -->
       <NuxtLink
-        class="focus:focus-util rounded-md p-2 hover:bg-gray-800"
+        class="focus:focus-util hover:bg-dark-200 rounded-md p-2"
         to="/"
       >
         <div class="i-carbon-logout h-6 w-6 text-white" />

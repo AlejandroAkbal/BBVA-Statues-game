@@ -20,6 +20,14 @@ function onFormSubmit() {
       <h1 class="text-2xl font-semibold text-white">Statues</h1>
     </div>
 
+    <NuxtLink
+      class="focus:focus-util hover:bg-dark-200 flex flex-col gap-2 rounded-md p-2 text-white"
+      to="/ranking"
+    >
+      <div class="i-carbon-star text-indigo mx-auto h-10 w-10" />
+      Player ranking
+    </NuxtLink>
+
     <form
       class="grid place-items-center gap-10"
       @submit.prevent="onFormSubmit"
