@@ -11,6 +11,7 @@ import {
 import { presetForms } from '@julr/unocss-preset-forms'
 
 export default defineConfig({
+  shortcuts: [['focus-util', 'outline-none ring-2 ring-indigo-500']],
   presets: [
     presetUno(),
     presetForms(),

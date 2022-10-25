@@ -27,8 +27,8 @@ function onFormSubmit() {
       <!-- Name input -->
       <div class="space-y-2">
         <label
-          for="player-name"
           class="block text-lg font-medium text-gray-200"
+          for="player-name"
         >
           Name
         </label>
@@ -36,12 +36,12 @@ function onFormSubmit() {
         <input
           id="player-name"
           ref="playerNameElement"
-          type="text"
+          aria-describedby="player-name-help-text"
+          class="focus:focus-util block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
           name="player-name"
           pattern="[A-Za-z0-9]+"
-          aria-describedby="player-name-help-text"
           required
-          class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 sm:text-sm"
+          type="text"
         />
 
         <span
@@ -54,8 +54,8 @@ function onFormSubmit() {
 
       <!-- Submit button -->
       <button
+        class="focus:focus-util block w-full rounded-md bg-indigo-600 py-1.5 text-lg font-medium text-white hover:bg-indigo-700 focus:ring-offset-2"
         type="submit"
-        class="block w-full rounded-md bg-indigo-600 py-1.5 text-lg font-medium text-white hover:bg-indigo-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         Play
       </button>
