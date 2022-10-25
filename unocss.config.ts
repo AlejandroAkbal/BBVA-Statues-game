@@ -6,17 +6,17 @@ import {
   presetUno,
   presetWebFonts,
   transformerDirectives,
-  transformerVariantGroup,
+  transformerVariantGroup
 } from 'unocss'
 import { presetForms } from '@julr/unocss-preset-forms'
 
 export default defineConfig({
-    presets: [
+  presets: [
     presetUno(),
     presetForms(),
     presetAttributify(),
     presetIcons({
-      scale: 1.2,
+      scale: 1.2
     }),
     presetTypography(),
     presetWebFonts({
@@ -25,12 +25,9 @@ export default defineConfig({
       fonts: {
         sans: 'Inter',
         serif: 'DM Serif Display',
-        mono: 'DM Mono',
-      },
-    }),
+        mono: 'DM Mono'
+      }
+    })
   ],
-  transformers: [
-    transformerDirectives(),
-    transformerVariantGroup(),
-  ],
+  transformers: [transformerDirectives(), transformerVariantGroup()]
 })

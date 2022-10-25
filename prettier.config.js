@@ -10,5 +10,5 @@ module.exports = {
   sortTailwindcssClasses: true,
   sortHtmlAttributes: 'vue',
 
-  plugins: [require('prettier-plugin-tailwindcss')],
+  plugins: [require('prettier-plugin-tailwindcss')]
 }

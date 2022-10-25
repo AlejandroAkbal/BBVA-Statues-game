@@ -5,7 +5,7 @@
 </template>
 
 <style>
-  body {
-    @apply bg-black;
-  }
+body {
+  @apply bg-black;
+}
 </style>
