@@ -9,7 +9,9 @@ export default defineNuxtConfig({
 
   unocss: {
     preflight: true
-  }
+  },
 
   // TODO: Configure PWA
+
+  telemetry: false
 })
