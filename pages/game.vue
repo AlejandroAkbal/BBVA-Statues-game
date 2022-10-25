@@ -95,6 +95,8 @@ function subtractOneToScore() {
 }
 
 function resetScore() {
+  vibrate(500)
+
   gameData.value.players[playerName].score = 0
 }
 
