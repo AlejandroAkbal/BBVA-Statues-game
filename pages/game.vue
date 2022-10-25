@@ -1,139 +1,142 @@
 <script setup>
-  import { useLocalStorage, useVibrate } from '@vueuse/core'
+import { useLocalStorage, useVibrate } from '@vueuse/core'
 
-  const route = useRoute()
-  const { vibrate, stop: stopVibrate } = useVibrate({ pattern: [100, 300] })
+const route = useRoute()
+const { vibrate, stop: stopVibrate } = useVibrate({ pattern: [100, 300] })
 
-  const gameData = useLocalStorage('game-data', { players: {}, version: 1 })
+const gameData = useLocalStorage('game-data', {
+  players: {},
+  version: 1
+})
 
-  const playerName = route.query.name
+const playerName = route.query.name
 
-  const playerData = computed(() => gameData.value.players[playerName])
+const playerData = computed(() => gameData.value.players[playerName] ?? null)
 
-  const trafficLight = ref('green')
+const trafficLight = ref('green')
 
-  const redLightDuration = 3000
+const redLightDuration = 3000
 
-  onBeforeMount(() => {
+onBeforeMount(() => {
+  //
+
+  // Check if the player name is available in the query string
+  if (!playerName) {
+    navigateTo({ path: '/' })
+  }
+
+  // Check if the player exists
+  if (!playerData.value) {
     //
 
-    // Check if the player name is available in the query string
-    if (!playerName) {
-      navigateTo({ path: '/' })
-    }
-
-    // Check if the player exists
-    if (!playerData.value) {
-      //
-
-      // Add the player to the game data
-      gameData.value.players[playerName] = {
-        score: 0,
-        highScore: 0
-      }
-    }
-  })
-
-  onMounted(() => {
-    //
-
-    startGreenRound()
-  })
-
-  function calculateGreenLightDuration() {
-    const maxDuration = 10000
-    const minDuration = 2000
-
-    const extraMaxDuration = 1500
-    const extraMinDuration = -1500
-
-    const score = playerData.value.score
-
-    const greenLightDuration = Math.max(maxDuration - score * 100, minDuration)
-
-    const extraDuration = Math.floor(Math.random() * (extraMaxDuration - extraMinDuration + 1)) + extraMinDuration
-
-    return greenLightDuration + extraDuration
-  }
-
-  function startGreenRound() {
-    trafficLight.value = 'green'
-
-    const greenLightDuration = calculateGreenLightDuration()
-    setTimeout(startRedRound, greenLightDuration)
-  }
-
-  function startRedRound() {
-    trafficLight.value = 'red'
-
-    setTimeout(startGreenRound, redLightDuration)
-  }
-
-  // TODO: Move this to player data
-  const lastWalk = ref(null)
-
-  function addOneToScore() {
-    gameData.value.players[playerName].score += 1
-
-    // Check if the player has a new high score
-    if (gameData.value.players[playerName].score > gameData.value.players[playerName].highScore) {
-      gameData.value.players[playerName].highScore = gameData.value.players[playerName].score
+    // Add the player to the game data
+    gameData.value.players[playerName] = {
+      score: 0,
+      highScore: 0
     }
   }
+})
 
-  function subtractOneToScore() {
-    stopVibrate()
+onMounted(() => {
+  //
 
-    if (gameData.value.players[playerName].score > 0) {
-      gameData.value.players[playerName].score -= 1
-    }
+  startGreenRound()
+})
 
-    vibrate()
+function calculateGreenLightDuration() {
+  const maxDuration = 10000
+  const minDuration = 2000
+
+  const extraMaxDuration = 1500
+  const extraMinDuration = -1500
+
+  const score = playerData.value.score
+
+  const greenLightDuration = Math.max(maxDuration - score * 100, minDuration)
+
+  const extraDuration = Math.floor(Math.random() * (extraMaxDuration - extraMinDuration + 1)) + extraMinDuration
+
+  return greenLightDuration + extraDuration
+}
+
+function startGreenRound() {
+  trafficLight.value = 'green'
+
+  const greenLightDuration = calculateGreenLightDuration()
+  setTimeout(startRedRound, greenLightDuration)
+}
+
+function startRedRound() {
+  trafficLight.value = 'red'
+
+  setTimeout(startGreenRound, redLightDuration)
+}
+
+// TODO: Move this to player data
+const lastWalk = ref(null)
+
+function addOneToScore() {
+  gameData.value.players[playerName].score += 1
+
+  // Check if the player has a new high score
+  if (gameData.value.players[playerName].score > gameData.value.players[playerName].highScore) {
+    gameData.value.players[playerName].highScore = gameData.value.players[playerName].score
+  }
+}
+
+function subtractOneToScore() {
+  stopVibrate()
+
+  if (gameData.value.players[playerName].score > 0) {
+    gameData.value.players[playerName].score -= 1
   }
 
-  function resetScore() {
-    gameData.value.players[playerName].score = 0
+  vibrate()
+}
+
+function resetScore() {
+  gameData.value.players[playerName].score = 0
+}
+
+function onWalkLeft() {
+  if (trafficLight.value === 'red') {
+    resetScore()
+    return
   }
 
-  function onWalkLeft() {
-    if (trafficLight.value === 'red') {
-      resetScore()
-      return
-    }
+  switch (lastWalk.value) {
+    case 'left':
+      subtractOneToScore()
+      break
 
-    switch (lastWalk.value) {
-      case 'left':
-        subtractOneToScore()
-        break
-
-      case 'right':
-      default:
-        addOneToScore()
-        break
-    }
-
-    lastWalk.value = 'left'
+    case 'right':
+    default:
+      addOneToScore()
+      break
   }
 
-  function onWalkRight() {
-    if (trafficLight.value === 'red') {
-      resetScore()
-      return
-    }
+  lastWalk.value = 'left'
+}
 
-    switch (lastWalk.value) {
-      case 'right':
-        subtractOneToScore()
-        break
-
-      case 'left':
-      default:
-        addOneToScore()
-        break
-    }
-
-    lastWalk.value = 'right'
+function onWalkRight() {
+  if (trafficLight.value === 'red') {
+    resetScore()
+    return
   }
+
+  switch (lastWalk.value) {
+    case 'right':
+      subtractOneToScore()
+      break
+
+    case 'left':
+    default:
+      addOneToScore()
+      break
+  }
+
+  lastWalk.value = 'right'
+}
 </script>
 
 <template>
