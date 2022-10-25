@@ -18,8 +18,10 @@ export default defineConfig({
     }),
     presetTypography(),
     presetWebFonts({
+      provider: 'bunny',
+
       fonts: {
-        sans: 'DM Sans',
+        sans: 'Inter',
         serif: 'DM Serif Display',
         mono: 'DM Mono',
       },
