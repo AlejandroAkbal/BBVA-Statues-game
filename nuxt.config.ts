@@ -4,15 +4,15 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@kevinmarrec/nuxt-pwa',
   ],
+  
   experimental: {
     reactivityTransform: true,
   },
+
   unocss: {
     preflight: true,
   },
+
   pwa: {
-    workbox: {
-      enabled: true,
-    },
   },
 })
